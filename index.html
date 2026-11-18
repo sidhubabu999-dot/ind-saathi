@@ -1,1 +1,107 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IND Saathi | Connect, Book, Explore</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f5f7fb;color:#172033}
+header{background:#142b52;color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.logo{font-size:25px;font-weight:bold}
+nav a{color:white;text-decoration:none;margin:0 8px;font-size:14px}
+.hero{text-align:center;padding:65px 18px;background:linear-gradient(135deg,#142b52,#2765a5);color:white}
+.hero h1{font-size:36px;margin-bottom:15px}
+.hero p{font-size:17px;line-height:1.6}
+.btn{display:inline-block;background:#ffb52e;color:#172033;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:22px;border:0;cursor:pointer}
+section{padding:40px 6%}
+h2{text-align:center;margin-bottom:25px;color:#142b52}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card{background:white;padding:22px;border-radius:13px;box-shadow:0 3px 14px #00000010}
+.card h3{margin-bottom:10px;color:#142b52}
+.card p{font-size:14px;line-height:1.6;color:#596579}
+.formbox{max-width:500px;margin:auto;background:white;padding:25px;border-radius:13px;box-shadow:0 3px 14px #00000010}
+input,select{width:100%;padding:13px;margin:9px 0;border:1px solid #ccd3df;border-radius:7px}
+.formbox button{width:100%;padding:13px;background:#142b52;color:white;border:0;border-radius:7px;font-size:16px}
+.notice{background:#fff5df;padding:18px;border-radius:10px;line-height:1.6}
+footer{text-align:center;background:#142b52;color:white;padding:25px;line-height:1.8}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">🇮🇳 IND Saathi</div>
+<nav>
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#register">Register</a>
+</nav>
+</header>
+
+<div class="hero" id="home">
+<h1>Connect. Book. Explore.</h1>
+<p>Find companions and helpful people for everyday activities.<br>
+Build connections and discover services across India.</p>
+<a class="btn" href="#services">Explore Services</a>
+</div>
+
+<section id="services">
+<h2>Explore Our Services</h2>
+<div class="services">
+<div class="card"><h3>🚶 Walking Partner</h3><p>Find a partner for morning or evening walks.</p></div>
+<div class="card"><h3>🛍️ Shopping Partner</h3><p>Connect with someone for shopping assistance.</p></div>
+<div class="card"><h3>📸 Photographer</h3><p>Find photography help for your occasions.</p></div>
+<div class="card"><h3>☕ Coffee & Conversation</h3><p>Meet people for friendly conversations in public places.</p></div>
+<div class="card"><h3>🎬 Movie Partner</h3><p>Find someone to accompany you to a movie.</p></div>
+<div class="card"><h3>🧳 Travel Partner</h3><p>Discover companions for planned trips.</p></div>
+<div class="card"><h3>🏪 Shop Helper</h3><p>Find assistance for everyday shop tasks.</p></div>
+<div class="card"><h3>🏠 Home Assistance</h3><p>Explore help for permitted small household tasks.</p></div>
+</div>
+</section>
+
+<section>
+<h2>Safety Comes First</h2>
+<div class="notice">
+<strong>Important:</strong> IND Saathi is intended only for adults aged 18 and above.
+Identity verification, consent and admin approval will be required before profiles can become verified. Never share your private address, OTP or banking password. Meet new people in public places.
+</div>
+</section>
+
+<section id="register">
+<h2>Join IND Saathi</h2>
+<div class="formbox">
+<p style="margin-bottom:12px">Registration interface preview</p>
+<form onsubmit="event.preventDefault();alert('Registration will be enabled after secure account and backend setup.');">
+<input type="text" placeholder="Your full name" required>
+<input type="email" placeholder="Email address" required>
+<select required>
+<option value="">Select your state</option>
+<option>Bihar</option>
+<option>Delhi</option>
+<option>Uttar Pradesh</option>
+<option>Maharashtra</option>
+<option>Kerala</option>
+<option>Other</option>
+</select>
+<select required>
+<option value="">Are you 18 or older?</option>
+<option value="yes">Yes</option>
+<option value="no">No</option>
+</select>
+<button type="submit">Continue</button>
+</form>
+<p style="font-size:12px;margin-top:12px;color:#687386">This preview does not create an account or collect registration data.</p>
+</div>
+</section>
+
+<footer>
+<strong>IND Saathi</strong><br>
+Connect • Book • Explore<br>
+About | Safety | Privacy | Contact<br>
+© 2026 IND Saathi
+</footer>
+
+</body>
+</html>
+
