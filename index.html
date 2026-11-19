@@ -114,7 +114,21 @@ About | Safety | Privacy | Contact<br>
     SUPABASE_KEY
   );
 </script>
+<!-- iandy साथी Chat Button -->
+<button id="chat-button" onclick="document.getElementById('chat-window').classList.toggle('open')">
+  💬 Chat
+</button>
 
+<div id="chat-window">
+  <div id="chat-header">iandy साथी Live Chat</div>
+  <div id="chat-messages"></div>
+  <div id="chat-input-area">
+    <input id="chat-input" type="text" placeholder="Message लिखें">
+    <button id="chat-send">Send</button>
+  </div>
+</div>
+
+<link rel="stylesheet" href="messages.css">
 </body>
 </html>
 
