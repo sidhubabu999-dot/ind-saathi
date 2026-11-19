@@ -129,6 +129,173 @@ About | Safety | Privacy | Contact<br>
 </div>
 
 <link rel="stylesheet" href="messages.css">
+
+/* =====================================
+   iandy Saathi - Private Live Chat
+   Supabase Integration
+===================================== */
+
+const chatMessages = document.getElementById("chat-messages");
+const chatInput = document.getElementById("chat-input");
+const chatSend = document.getElementById("chat-send");
+
+let currentUserId = null;
+let activeConversationId = null;
+let activeChannel = null;
+
+// Login user की ID प्राप्त करना
+async function getLoggedInUser() {
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error || !data.user) {
+    throw new Error("पहले Login करें");
+  }
+
+  currentUserId = data.user.id;
+  return currentUserId;
+}
+
+// Profile के Chat Button से इसे बुलाएँ
+async function openPrivateChat(otherUserId) {
+  try {
+    await getLoggedInUser();
+
+    if (!otherUserId || otherUserId === currentUserId) {
+      throw new Error("दूसरा सही User चुनें");
+    }
+
+    const ids = [currentUserId, otherUserId].sort();
+
+    const { data: chats, error } = await supabase
+      .from("chat_conversations")
+      .select("id")
+      .eq("user_one", ids[0])
+      .eq("user_two", ids[1])
+      .limit(1);
+
+    if (error) throw error;
+
+    if (chats.length > 0) {
+      activeConversationId = chats[0].id;
+    } else {
+      const { data, error: createError } = await supabase
+        .from("chat_conversations")
+        .insert({
+          user_one: ids[0],
+          user_two: ids[1],
+          initiated_by: currentUserId
+        })
+        .select("id")
+        .single();
+
+      if (createError) throw createError;
+
+      activeConversationId = data.id;
+    }
+
+    document.getElementById("chat-window").classList.add("open");
+
+    await loadMessages();
+    startRealtime();
+
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+// Messages प्राप्त करना
+async function loadMessages() {
+  const { data, error } = await supabase
+    .from("chat_messages")
+    .select("*")
+    .eq("conversation_id", activeConversationId)
+    .order("created_at", { ascending: true });
+
+  if (error) throw error;
+
+  chatMessages.replaceChildren();
+
+  data.forEach(message => {
+    const div = document.createElement("div");
+
+    div.textContent =
+      (message.sender_id === currentUserId ? "आप: " : "दूसरा यूज़र: ")
+      + message.message;
+
+    chatMessages.appendChild(div);
+  });
+
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Message भेजना
+async function sendMessage() {
+  const message = chatInput.value.trim();
+
+  if (!message || !activeConversationId) return;
+
+  chatSend.disabled = true;
+
+  try {
+    const { error } = await supabase.rpc(
+      "send_chat_message",
+      {
+        p_conversation_id: activeConversationId,
+        p_message: message
+      }
+    );
+
+    if (error) throw error;
+
+    chatInput.value = "";
+    await loadMessages();
+
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    chatSend.disabled = false;
+  }
+}
+
+// Realtime Chat
+function startRealtime() {
+  if (activeChannel) {
+    supabase.removeChannel(activeChannel);
+  }
+
+  activeChannel = supabase
+    .channel("chat-" + activeConversationId)
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "chat_messages",
+        filter: "conversation_id=eq." + activeConversationId
+      },
+      () => loadMessages()
+    )
+    .subscribe();
+}
+
+// Send Button
+chatSend.addEventListener("click", sendMessage);
+
+chatInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+});
+
+// Profile Chat Button
+document.addEventListener("click", event => {
+  const button = event.target.closest("[data-chat-user-id]");
+
+  if (button) {
+    openPrivateChat(button.dataset.chatUserId);
+  }
+});
+
 </body>
 </html>
 
