@@ -1,0 +1,66 @@
+/* iandy साथी - Chat Design */
+
+#chat-button {
+  position: fixed;
+  right: 18px;
+  bottom: 20px;
+  background: #1677ff;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  z-index: 9999;
+}
+
+#chat-window {
+  display: none;
+  position: fixed;
+  right: 15px;
+  bottom: 80px;
+  width: 300px;
+  height: 400px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  z-index: 9999;
+  box-shadow: 0 4px 18px #0002;
+}
+
+#chat-window.open {
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-header {
+  padding: 14px;
+  background: #1677ff;
+  color: white;
+  border-radius: 14px 14px 0 0;
+}
+
+#chat-messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+#chat-input-area {
+  display: flex;
+  padding: 8px;
+  gap: 6px;
+}
+
+#chat-input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px;
+}
+
+#chat-send {
+  background: #1677ff;
+  color: white;
+  border: none;
+  padding: 9px 12px;
+  border-radius: 8px;
+  }
