@@ -102,6 +102,15 @@ About | Safety | Privacy | Contact<br>
 © 2026 IND Saathi
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const SUPABASE_URL = 'यहाँ अपना Project URL डालो';
+  const SUPABASE_KEY = 'यहाँ अपनी Public Key डालो';
+
+  const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+</script>
 </body>
 </html>
 
