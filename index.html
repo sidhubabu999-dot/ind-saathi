@@ -122,6 +122,41 @@ About | Safety | Privacy | Contact<br>
     SUPABASE_KEY
   );
 </script>
+document.getElementById("signup-form").addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("signup-name").value.trim();
+  const email = document.getElementById("signup-email").value.trim();
+  const password = document.getElementById("signup-password").value;
+  const state = document.getElementById("signup-state").value;
+  const age = document.getElementById("signup-age").value;
+
+  if (age !== "yes") {
+    alert("IND Saathi is only for adults aged 18 or above.");
+    return;
+  }
+
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name,
+          state: state
+        }
+      }
+    });
+
+    if (error) throw error;
+
+    alert("Signup request successful! Check your email for verification.");
+
+  } catch (error) {
+    alert(error.message);
+  }
+});
+    </script>
 <!-- iandy साथी Chat Button -->
 <button id="chat-button" onclick="document.getElementById('chat-window').classList.toggle('open')">
   💬 Chat
